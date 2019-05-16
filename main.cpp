@@ -3,7 +3,9 @@
 #include <cctype>
 #include <cstdio>
 #include <wincon.h>
+#include <conio.h>
 #include "DataKeeper.hpp"
+#include "Utils.hpp"
 
 using namespace std;
 HANDLE hIn, hOut;
@@ -26,27 +28,33 @@ KEY_EVENT_RECORD getKey() {
 }
 
 int main() {
-	hIn = GetStdHandle(STD_INPUT_HANDLE);
-	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	Record r("Ania z zielonego wzgorza", "Montgomery Lucy Maud",
-	         "Rudowłosa, piegowata Ania, błąka się po domach dziecka i kolejnych rodzinach zastępczych, by w końcu, przez pomyłkę, trafić na Zielone Wzgórze, pod skrzydła rodzeństwa Cuthbert - Maryli i Mateusza. Z pozoru bardzo zasadniczy nowi opiekunowie, w rzeczywistości są kochani i jedyni na świecie. To u nich Ania Shirley znajduje dom...");
+	DataKeeper dk;
 
-	r.setState(static_cast<Record::State>(2));
-	cout << static_cast<short>(r.getState()) << endl;
-
-	Record c(r);
-	cout << c.getName() << endl;
-
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wmissing-noreturn"
-	while (true) {
-		auto c = getKey();
-		cout << c.uChar.AsciiChar << " (" << (int) c.uChar.AsciiChar << " / " << c.wVirtualKeyCode << ")" << endl
-		     << flush;
+	if (!dk.loadFromFile()) {
+		cout << "File access error!";
+		_getch();
+		return 1;
 	}
-#pragma clang diagnostic pop
 
+	for (auto r : dk.records) {
+		cout << r->getName() << endl;
+	}
+
+	dk.saveToFile();
+
+//	hIn = GetStdHandle(STD_INPUT_HANDLE);
+//	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+//
+//#pragma clang diagnostic push
+//#pragma clang diagnostic ignored "-Wmissing-noreturn"
+//	while (true) {
+//		auto c = getKey();
+//		cout << c.uChar.AsciiChar << " (" << (int) c.uChar.AsciiChar << " / " << c.wVirtualKeyCode << ")" << endl
+//		     << flush;
+//	}
+//#pragma clang diagnostic pop
+
+//	_getch();
 	return 0;
 }

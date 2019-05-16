@@ -25,21 +25,21 @@ public:
 
 	/***
 	 * Constructor
-	 * @param name
-	 * @param author
-	 * @param description
-	 * @param signature
+	 * @param name Book name
+	 * @param author Author full name
+	 * @param description Description
+	 * @param signature Unique book signature
 	 */
-	Record(string name, string author, string description = "", string signature = "")
+	Record(string name, string author, string description = "", string signature = "", State state = State::Available)
 			: name(std::move(name)),
 			  author(std::move(author)),
 			  description(std::move(description)),
 			  signature(std::move(signature)),
-			  state(State::Available) {};
+			  state(state) {};
 
 	/***
 	 * Copy constructor
-	 * @param record
+	 * @param record Record object to copy
 	 */
 	Record(const Record &record);
 

@@ -9,22 +9,35 @@
 #include "Record.hpp"
 
 class DataKeeper {
-	vector<Record> rawData;
-	vector<Record *> records;
+	const string DATA_FILE = "data.txt";
+	const char DATA_DELIMITER = ';';
+	const int DATA_INPUT_STRINGS_AMOUNT = 5;
+
+	enum class FileDataOrder : int {
+		Name = 0,
+		Author = 1,
+		Description = 2,
+		Signature = 3,
+		State = 4
+	};
 
 public:
-	enum class SortBy : short {
+	vector<Record *> records;
+
+	enum class SortBy : int {
 		Name = 0,
 		Author = 1,
 		Signature = 2,
 		State = 3,
 	};
 
-	void loadFromFile();
+	DataKeeper() = default;
 
-	void saveToFile();
+	int loadFromFile();
 
-	vector<Record *> getRecords();
+	int saveToFile();
+
+	vector<Record *> *getRecords();
 
 	void sort(SortBy sortby);
 };
