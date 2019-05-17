@@ -9,6 +9,9 @@
 
 using namespace std;
 
+/**
+ * Record data class
+ */
 class Record {
 public:
 	enum class State : short {
@@ -17,7 +20,6 @@ public:
 		Unavailable = 2,
 	};
 
-protected:
 	string name, description, signature, author;
 	Record::State state;
 
@@ -43,25 +45,17 @@ public:
 	 */
 	Record(const Record &record);
 
-	const State &getState() const;
+	/**
+	 * Get state as int
+	 * @return state State as int
+	 */
+	const int getState() const;
 
-	const string &getName() const;
-
-	const string &getDescription() const;
-
-	const string &getSignature() const;
-
-	const string &getAuthor() const;
-
-	void setState(State state);
-
-	void setName(const string &name_);
-
-	void setAuthor(const string &author_);
-
-	void setSignature(const string &signature_);
-
-	void setDescription(const string &description_);
+	/**
+	 * Set state from int
+	 * @param state State as int
+	 */
+	void setState(const int &state);
 };
 
 

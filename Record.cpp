@@ -12,43 +12,11 @@ Record::Record(const Record &record) {
 	this->state = record.state;
 }
 
-void Record::setName(const string &name_) {
-	Record::name = name_;
+const int Record::getState() const {
+	return static_cast<int>(state);
 }
 
-void Record::setDescription(const string &description_) {
-	Record::description = description_;
-}
-
-void Record::setSignature(const string &signature_) {
-	Record::signature = signature_;
-}
-
-void Record::setAuthor(const string &author_) {
-	Record::author = author_;
-}
-
-const string &Record::getName() const {
-	return name;
-}
-
-const string &Record::getDescription() const {
-	return description;
-}
-
-const string &Record::getSignature() const {
-	return signature;
-}
-
-const string &Record::getAuthor() const {
-	return author;
-}
-
-const Record::State &Record::getState() const {
-	return state;
-}
-
-void Record::setState(State s) {
-	Record::state = s;
+void Record::setState(const int &state_) {
+	state = static_cast<State>(state);
 }
 

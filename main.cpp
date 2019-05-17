@@ -38,7 +38,7 @@ int main() {
 	}
 
 	for (auto r : dk.records) {
-		cout << r->getName() << endl;
+		cout << r->name << endl;
 	}
 
 	dk.saveToFile();

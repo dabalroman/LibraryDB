@@ -61,11 +61,11 @@ int DataKeeper::saveToFile() {
 	if (file.good()) {
 
 		for (auto r : records) {
-			file << r->getName() << ';'
-			     << r->getAuthor() << ';'
-			     << r->getDescription() << ';'
-			     << r->getSignature() << ';'
-			     << static_cast<int>(r->getState()) << '\n';
+			file << r->name << ';'
+			     << r->author << ';'
+			     << r->description << ';'
+			     << r->signature << ';'
+			     << static_cast<int>(r->state) << '\n';
 		}
 
 	} else {
