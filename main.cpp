@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <windows.h>
 #include <cctype>
 #include <cstdio>
@@ -6,6 +7,8 @@
 #include <conio.h>
 #include "DataKeeper.hpp"
 #include "Utils.hpp"
+#include "Console.hpp"
+#include "ConsoleRenderer/TextField.hpp"
 
 using namespace std;
 HANDLE hIn, hOut;
@@ -30,18 +33,31 @@ KEY_EVENT_RECORD getKey() {
 int main() {
 
 	DataKeeper dk;
+	Console console;
 
-	if (!dk.loadFromFile()) {
-		cout << "File access error!";
-		_getch();
-		return 1;
+	console.setConsoleColor(Console::Color::AQUA);
+	TextField tf = TextField({10, 3}, "Hello!");
+	auto tfBuffer = *tf.getBuffer();
+
+	for (auto &line : tfBuffer) {
+		for (auto &rc : line) {
+			console.setConsoleColor(rc.color);
+			cout << rc.c;
+		}
+		cout << endl;
 	}
 
-	for (auto r : dk.records) {
-		cout << r->name << endl;
-	}
-
-	dk.saveToFile();
+//	if (!dk.loadFromFile()) {
+//		cout << "File access error!";
+//		_getch();
+//		return 1;
+//	}
+//
+//	for (auto r : dk.records) {
+//		cout << r->name << endl;
+//	}
+//
+//	dk.saveToFile();
 
 //	hIn = GetStdHandle(STD_INPUT_HANDLE);
 //	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -55,6 +71,6 @@ int main() {
 //	}
 //#pragma clang diagnostic pop
 
-//	_getch();
+	_getch();
 	return 0;
 }

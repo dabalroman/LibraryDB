@@ -13,4 +13,4 @@ add_executable(LibraryDB
         DataKeeper.cpp
         Utils.hpp
         Utils.cpp
-        )
+        Console.cpp Console.hpp ConsoleRenderer/ConsoleRenderer.cpp ConsoleRenderer/ConsoleRenderer.hpp ConsoleRenderer/Renderable.cpp ConsoleRenderer/Renderable.hpp ConsoleRenderer/TextField.cpp ConsoleRenderer/TextField.hpp)
