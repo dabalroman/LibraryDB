@@ -9,7 +9,6 @@
 
 #include <string>
 #include "Renderable.hpp"
-#include "ConsoleRenderer.hpp"
 
 using namespace std;
 
@@ -17,10 +16,12 @@ class TextField : public Renderable {
 protected:
 	void render() override;
 
+	TextAlign textAlign;
+
 public:
 	string text;
 
-	explicit TextField(COORD size, string text = "");
+	explicit TextField(COORD size_, string text_ = "", TextAlign textAlign_ = TextAlign::LEFT);
 };
 
 

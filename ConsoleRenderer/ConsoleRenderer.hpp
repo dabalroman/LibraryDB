@@ -7,25 +7,36 @@
 
 
 #include <vector>
-#include "../Console.hpp"
+#include "Console.hpp"
+#include "Renderable.hpp"
 
+//TODO: RENDER WHOLE SCREEN TO CONSOLE
 class ConsoleRenderer {
-public:
-	struct RICHCHAR {
-		char c;
-		Console::COLOR color;
-	};
-	typedef vector<RICHCHAR> RICHLINE;
-	typedef vector<RICHLINE> RICHTEXT;
-
 private:
 	COORD size;
-	RICHTEXT current, next;
+	Console::RICHTEXT currentFrame, nextFrame;
+
+	vector<Renderable *> renderables;
 
 public:
-	static void
-	insertStringIntoBuffer(RICHTEXT &buffer, string s, COORD coord, Console::COLOR color = Console::COLOR_DEFAULT);
-//	ConsoleRenderer(COORD size);
+	ConsoleRenderer(COORD size_);
+
+	/**
+	 * Resize console render
+	 * @param size_ New console render size
+	 */
+	void resize(COORD size_);
+
+	/**
+	 * Add renderable to render query
+	 * @param r Renderable
+	 */
+	void addRenderable(Renderable *r);
+
+	/**
+	 * Create next frame to render
+	 */
+	void prepareNextFrame();
 };
 
 

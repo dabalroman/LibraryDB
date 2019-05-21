@@ -6,24 +6,34 @@
 #define LIBRARYDB_RENDERABLE_HPP
 
 
-#include "ConsoleRenderer.hpp"
+#include "Console.hpp"
 
+//TODO: Render on demand (change) SUPPORT
 class Renderable {
 protected:
 	COORD size{};
+	COORD position{};
 
-	ConsoleRenderer::RICHTEXT buffer;
-
-	void prepareBuffer();
+	Console::RICHTEXT buffer;
 
 	virtual void render() = 0;
 
 public:
-	Renderable(COORD size);
+	enum class TextAlign {
+		LEFT, CENTER, RIGHT
+	};
+
+	Renderable(COORD size_, COORD position_ = {0, 0});
 
 	void resize(COORD size_);
 
-	const ConsoleRenderer::RICHTEXT *getBuffer();
+	void move(COORD position_);
+
+	COORD getSize();
+
+	COORD getPosition();
+
+	Console::RICHTEXT *getBuffer();
 };
 
 

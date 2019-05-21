@@ -7,7 +7,7 @@
 #include <conio.h>
 #include "DataKeeper.hpp"
 #include "Utils.hpp"
-#include "Console.hpp"
+#include "ConsoleRenderer/Console.hpp"
 #include "ConsoleRenderer/TextField.hpp"
 
 using namespace std;
@@ -35,8 +35,7 @@ int main() {
 	DataKeeper dk;
 	Console console;
 
-	console.setConsoleColor(Console::Color::AQUA);
-	TextField tf = TextField({10, 3}, "Hello!");
+	TextField tf = TextField({20, 3}, "Hello!");
 	auto tfBuffer = *tf.getBuffer();
 
 	for (auto &line : tfBuffer) {
@@ -46,6 +45,7 @@ int main() {
 		}
 		cout << endl;
 	}
+
 
 //	if (!dk.loadFromFile()) {
 //		cout << "File access error!";

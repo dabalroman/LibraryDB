@@ -4,11 +4,26 @@
 
 #include "ConsoleRenderer.hpp"
 
-void ConsoleRenderer::insertStringIntoBuffer(ConsoleRenderer::RICHTEXT &buffer, string s, COORD coord,
-                                             Console::COLOR color) {
-	for (int i = coord.Y; i < buffer.size(); i++) {
-		for (int j = coord.X; j < buffer[i].size() && (j - coord.X) < s.length(); j++) {
-			buffer[i][j] = {s[j - coord.X], color};
-		}
+ConsoleRenderer::ConsoleRenderer(COORD size_) {
+	resize(size_);
+}
+
+void ConsoleRenderer::resize(COORD size_) {
+	this->size = size_;
+	Console::prepareBuffer(currentFrame, size);
+	Console::prepareBuffer(nextFrame, size);
+}
+
+void ConsoleRenderer::addRenderable(Renderable *r) {
+	renderables.push_back(r);
+}
+
+void ConsoleRenderer::prepareNextFrame() {
+	//Cleanup next frame buffer
+	Console::prepareBuffer(nextFrame, size);
+
+	//Copy contents to screenBuffer
+	for (Renderable *r : renderables) {
+		Console::copyBufferContentsToBuffer(nextFrame, *r->getBuffer(), r->getPosition());
 	}
 }

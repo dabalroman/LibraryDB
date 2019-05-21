@@ -7,6 +7,7 @@
 
 #include <windows.h>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -37,6 +38,13 @@ public:
 		BRIGHT_WHITE = 0xF
 	};
 	static const COLOR COLOR_DEFAULT = (unsigned short) Color::BRIGHT_WHITE;
+
+	struct RICHCHAR {
+		char c;
+		Console::COLOR color;
+	};
+	typedef vector<RICHCHAR> RICHLINE;
+	typedef vector<RICHLINE> RICHTEXT;
 
 	Console();
 
@@ -85,6 +93,33 @@ public:
 	 */
 	static COLOR getColor(Color fg = Color::BRIGHT_WHITE, Color bg = Color::BLACK);
 
+	/**
+	 * Create given size buffer filled with default values
+	 * @param buffer Reference to buffer
+	 * @param size Buffer target size
+	 */
+	static void prepareBuffer(Console::RICHTEXT &buffer, COORD size);
+
+	/**
+	 * Copy buffer content to another buffer with position offset
+	 * @param target Buffer to copy to
+	 * @param source Buffer to copy from
+	 * @param offset Source buffer offset
+	 */
+	static void copyBufferContentsToBuffer(Console::RICHTEXT &target, Console::RICHTEXT &source, COORD offset = {0, 0});
+
+	/**
+	 * Inserts string into buffer at given position
+	 * @param buffer Reference to buffer
+	 * @param s String
+	 * @param offset String target position
+	 * @param color String target color
+	 */
+	static void
+	insertStringIntoBuffer(Console::RICHTEXT &buffer, string s, COORD offset = {0, 0},
+	                       Console::COLOR color = Console::COLOR_DEFAULT);
+
+	static void createBufferBorder(Console::RICHTEXT &buffer, Console::COLOR color = Console::COLOR_DEFAULT);
 private:
 	/**
 	 * Fetch console info from OS

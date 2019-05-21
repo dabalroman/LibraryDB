@@ -4,32 +4,31 @@
 
 #include "Renderable.hpp"
 
-void Renderable::prepareBuffer() {
-	buffer.clear();
-	buffer.resize(size.Y);
 
-	ConsoleRenderer::RICHCHAR rc = {' ', Console::COLOR_DEFAULT};
-
-	for (ConsoleRenderer::RICHLINE &sr : buffer) {
-		sr.resize(size.X, rc);
-	}
-
-	cout << "Buffer prepared: " << buffer.size() << " x " << buffer[0].size() << endl;
+Renderable::Renderable(COORD size_, COORD position_) {
+	cout << "Renderable constructor" << endl;
+	position = position_;
+	resize(size_);
 }
 
-Renderable::Renderable(COORD size) {
-	cout << "Renderable constructor" << endl;
-	this->size = size;
-
-	prepareBuffer();
+void Renderable::move(COORD position_) {
+	position = position_;
 }
 
 void Renderable::resize(COORD size_) {
-	this->size = size_;
-	prepareBuffer();
+	size = size_;
+	Console::prepareBuffer(buffer, size);
 }
 
-const ConsoleRenderer::RICHTEXT *Renderable::getBuffer() {
+COORD Renderable::getSize() {
+	return size;
+}
+
+COORD Renderable::getPosition() {
+	return position;
+}
+
+Console::RICHTEXT *Renderable::getBuffer() {
 	render();
 	return &buffer;
 }

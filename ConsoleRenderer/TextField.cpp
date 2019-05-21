@@ -8,16 +8,26 @@
 using namespace std;
 
 void TextField::render() {
-	ConsoleRenderer::RICHCHAR rc = {'-', Console::COLOR_DEFAULT};
+	cout << "TextField Render()" << endl;
 
-	ConsoleRenderer::insertStringIntoBuffer(buffer, text, {0, 1}, Console::getColor(Console::Color::LIGHT_RED));
-	fill(buffer.at(0).begin(), buffer.at(0).end(), rc);
-	fill(buffer.at(2).begin(), buffer.at(2).end(), rc);
+	//TODO: ALIGN SUPPORT
+
+	Console::createBufferBorder(buffer, Console::getColor(Console::Color::LIGHT_BLUE));
+	Console::insertStringIntoBuffer(buffer, text, {2, 1}, Console::getColor(Console::Color::LIGHT_RED));
 }
 
-TextField::TextField(COORD size, string text) : Renderable(size) {
+TextField::TextField(COORD size_, string text_, TextAlign textAlign_) : Renderable(size_) {
 	cout << "Text field constructor" << endl;
-	this->text = std::move(text);
+	textAlign = textAlign_;
+	text = std::move(text_);
+
+	if (size.X < 10) {
+		size.X = 10;
+	}
+
+	if (size.Y < 3) {
+		size.Y = 3;
+	}
 }
 
 
