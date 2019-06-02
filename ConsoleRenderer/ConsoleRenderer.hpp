@@ -13,13 +13,14 @@
 //TODO: RENDER WHOLE SCREEN TO CONSOLE
 class ConsoleRenderer {
 private:
-	COORD size;
+	COORD size{};
+	Console *console;
 	Console::RICHTEXT currentFrame, nextFrame;
 
 	vector<Renderable *> renderables;
 
 public:
-	ConsoleRenderer(COORD size_);
+	explicit ConsoleRenderer(Console &console_);
 
 	/**
 	 * Resize console render
@@ -33,6 +34,12 @@ public:
 	 */
 	void addRenderable(Renderable *r);
 
+	/**
+	 * Render buffer to console screen
+	 */
+	void render();
+
+private:
 	/**
 	 * Create next frame to render
 	 */

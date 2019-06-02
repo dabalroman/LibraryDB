@@ -1,7 +1,3 @@
-//
-// Created by rd on 16/05/2019.
-//
-
 #ifndef LIBRARYDB_DATAKEEPER_HPP
 #define LIBRARYDB_DATAKEEPER_HPP
 

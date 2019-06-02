@@ -18,7 +18,7 @@ class Console {
 	const COORD topLeft = {0, 0};
 
 public:
-	typedef unsigned short COLOR;
+	typedef unsigned short FULLCOLOR;
 	enum class Color : unsigned short {
 		BLACK = 0x0,
 		BLUE = 0x1,
@@ -37,15 +37,22 @@ public:
 		LIGHT_YELLOW = 0xE,
 		BRIGHT_WHITE = 0xF
 	};
-	static const COLOR COLOR_DEFAULT = (unsigned short) Color::BRIGHT_WHITE;
+	static const FULLCOLOR COLOR_DEFAULT = (unsigned short) Color::BRIGHT_WHITE;
 
 	struct RICHCHAR {
 		char c;
-		Console::COLOR color;
+		Console::FULLCOLOR color;
+
+		bool operator!=(const RICHCHAR &a) const {
+			return (c != a.c || color != a.color);
+		}
 	};
 	typedef vector<RICHCHAR> RICHLINE;
 	typedef vector<RICHLINE> RICHTEXT;
+private:
+	FULLCOLOR currentColor = {};
 
+public:
 	Console();
 
 	/**
@@ -71,13 +78,19 @@ public:
 	 * @param fg Console::Color Foreground color. Default BRIGHT_WHITE
 	 * @param bg Console::Color Background color. Default BLACK
 	 */
-	void setConsoleColor(Color fg, Color bg = Color::BLACK);
+	void setColor(Color fg, Color bg = Color::BLACK);
 
 	/**
 	 * Sets console color
 	 * @param c COLOR
 	 */
-	void setConsoleColor(COLOR c = COLOR_DEFAULT);
+	void setColor(FULLCOLOR c = COLOR_DEFAULT);
+
+	/**
+	 * Returns console color
+	 * @return FULLCOLOR Console color
+	 */
+	FULLCOLOR getCurrentColor();
 
 	/**
 	 * Returns size of console
@@ -86,40 +99,12 @@ public:
 	COORD getSize();
 
 	/**
-	 * Returns COLOR
+	 * Returns FULLCOLOR
 	 * @param fg Console::Color Foreground color. Default BRIGHT_WHITE
 	 * @param bg Console::Color Background color. Default BLACK
-	 * @return COLOR Combined fg & bg values
+	 * @return FULLCOLOR Combined fg & bg values
 	 */
-	static COLOR getColor(Color fg = Color::BRIGHT_WHITE, Color bg = Color::BLACK);
-
-	/**
-	 * Create given size buffer filled with default values
-	 * @param buffer Reference to buffer
-	 * @param size Buffer target size
-	 */
-	static void prepareBuffer(Console::RICHTEXT &buffer, COORD size);
-
-	/**
-	 * Copy buffer content to another buffer with position offset
-	 * @param target Buffer to copy to
-	 * @param source Buffer to copy from
-	 * @param offset Source buffer offset
-	 */
-	static void copyBufferContentsToBuffer(Console::RICHTEXT &target, Console::RICHTEXT &source, COORD offset = {0, 0});
-
-	/**
-	 * Inserts string into buffer at given position
-	 * @param buffer Reference to buffer
-	 * @param s String
-	 * @param offset String target position
-	 * @param color String target color
-	 */
-	static void
-	insertStringIntoBuffer(Console::RICHTEXT &buffer, string s, COORD offset = {0, 0},
-	                       Console::COLOR color = Console::COLOR_DEFAULT);
-
-	static void createBufferBorder(Console::RICHTEXT &buffer, Console::COLOR color = Console::COLOR_DEFAULT);
+	static FULLCOLOR getFullColor(Color fg = Color::BRIGHT_WHITE, Color bg = Color::BLACK);
 private:
 	/**
 	 * Fetch console info from OS
