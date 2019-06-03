@@ -13,6 +13,10 @@ class InputField : public TextField {
 protected:
 	void render() override;
 
+	bool active = false;
+
+	Console::FULLCOLOR activeColor = Console::COLOR_DEFAULT;
+
 public:
 	/**
 	 * Create InputField
@@ -21,6 +25,24 @@ public:
 	 * @param textAlign_
 	 */
 	explicit InputField(COORD size_, string text_ = "", TextAlign textAlign_ = TextAlign::LEFT);
+
+	/**
+	 * Is active?
+	 * @return active
+	 */
+	bool isActive() const;
+
+	/**
+	 * Set active
+	 * @param active
+	 */
+	void setActive(bool active);
+
+	/**
+	 * Set active color
+	 * @param textColor_ FULLCOLOR
+	 */
+	void setActiveColor(Console::FULLCOLOR activeColor_);
 
 	/**
 	 * Insert char

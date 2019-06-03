@@ -12,6 +12,7 @@ using namespace std;
 
 enum KEY : int {
 	BACKSPACE = 8,
+	ENTER = 13,
 	ESC = 27,
 	ARROW_UP = 38,
 	ARROW_DOWN = 40,
@@ -19,6 +20,7 @@ enum KEY : int {
 	ARROW_RIGHT = 39,
 	A = 65,
 	I = 73,
+	N = 78,
 	S = 83,
 	T = 84,
 	Z = 90,

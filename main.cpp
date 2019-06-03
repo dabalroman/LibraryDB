@@ -25,6 +25,11 @@ int main() {
 	Console console;
 	ConsoleRenderer consoleRenderer(console);
 
+	//Screens
+	auto *list = new Screen();
+	auto *details = new Screen();
+
+	//List screen
 	//Text field
 	TextField *tf = new TextField({20, 1}, " ??? ");
 	tf->move({100, (short) (console.getSize().Y - 1)});
@@ -34,26 +39,37 @@ int main() {
 
 	auto *input = new InputField({console.getSize().X, 1});
 	input->setTextColor(Console::getFullColor(Console::Color::BRIGHT_WHITE, Console::Color::GRAY));
-	input->move({0, (short) (console.getSize().Y - 3)});
+	input->setActiveColor(Console::getFullColor(Console::Color::BLACK, Console::Color::WHITE));
+	input->move({0, (short) (console.getSize().Y - 4)});
 
 	//General info
-	auto *instructions = new TextField({console.getSize().X, 1});
-	instructions->text = "Ogolne:     [Strzalka w gore / dol] - Zaznacz rekord    [I] - Szukaj    [ESC] - Zakoncz";
-	instructions->setTextColor(Console::getFullColor(Console::Color::BRIGHT_WHITE, Console::Color::BLUE));
-	instructions->move({0, (short) (console.getSize().Y - 2)});
+	auto *listScreenInstructions = new TextField({console.getSize().X, 1});
+	listScreenInstructions->text = "Ogolne:     [Strzalka w gore / dol] - Zaznacz rekord               [Strzalka w prawo / Enter] - Szczegoly rekordu";
+	listScreenInstructions->setTextColor(Console::getFullColor(Console::Color::BRIGHT_WHITE, Console::Color::BLUE));
+	listScreenInstructions->move({0, (short) (console.getSize().Y - 3)});
+
+	auto *listScreenInstructions2 = new TextField({console.getSize().X, 1});
+	listScreenInstructions2->text = "            [N] - Nowy rekord    [I] - Szukaj    [ESC] - Zakoncz";
+	listScreenInstructions2->setTextColor(Console::getFullColor(Console::Color::BRIGHT_WHITE, Console::Color::BLUE));
+	listScreenInstructions2->move({0, (short) (console.getSize().Y - 2)});
 
 	//Sort info
-	auto *sortInstructions = new TextField({console.getSize().X, 1});
-	sortInstructions->text = "Sortowanie: [T] - Tytul    [A] - Autor    [S] - Status    [Z] - Sygnatura";
-	sortInstructions->setTextColor(Console::getFullColor(Console::Color::BRIGHT_WHITE, Console::Color::PURPLE));
-	sortInstructions->move({0, (short) (console.getSize().Y - 1)});
+	auto *listScreenSortInstructions = new TextField({console.getSize().X, 1});
+	listScreenSortInstructions->text = "Sortowanie: [T] - Tytul          [A] - Autor     [S] - Status      [Z] - Sygnatura";
+	listScreenSortInstructions->setTextColor(
+			Console::getFullColor(Console::Color::BRIGHT_WHITE, Console::Color::PURPLE));
+	listScreenSortInstructions->move({0, (short) (console.getSize().Y - 1)});
 
+	list->addRenderable(booksList);
+	list->addRenderable(input);
+	list->addRenderable(listScreenInstructions);
+	list->addRenderable(listScreenInstructions2);
+	list->addRenderable(listScreenSortInstructions);
+	list->addRenderable(tf);
+	details->addRenderable(tf);
 
-	consoleRenderer.addRenderable(booksList);
-	consoleRenderer.addRenderable(input);
-	consoleRenderer.addRenderable(instructions);
-	consoleRenderer.addRenderable(sortInstructions);
-	consoleRenderer.addRenderable(tf);
+	consoleRenderer.addScreen(list);
+	consoleRenderer.addScreen(details);
 	consoleRenderer.render();
 
 	//App heartbeat
@@ -77,7 +93,7 @@ int main() {
 
 			//ESC
 			if (c.wVirtualKeyCode == KEY::ESC) {
-				input->setTextColor(Console::getFullColor(Console::Color::BRIGHT_WHITE, Console::Color::GRAY));
+				input->setActive(false);
 				textInputMode = false;
 			}
 		} else {
@@ -112,7 +128,7 @@ int main() {
 					break;
 				case KEY::I:
 					//Enable input
-					input->setTextColor(Console::getFullColor(Console::Color::BLUE, Console::Color::WHITE));
+					input->setActive(true);
 					textInputMode = true;
 					break;
 			}

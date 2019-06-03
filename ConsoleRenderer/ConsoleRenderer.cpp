@@ -17,8 +17,8 @@ void ConsoleRenderer::resize(COORD size_) {
 	Buffer::prepare(nextFrame, size);
 }
 
-void ConsoleRenderer::addRenderable(Renderable *r) {
-	renderables.push_back(r);
+void ConsoleRenderer::addScreen(Screen *s) {
+	screens.push_back(s);
 }
 
 void ConsoleRenderer::prepareNextFrame() {
@@ -26,7 +26,7 @@ void ConsoleRenderer::prepareNextFrame() {
 	Buffer::prepare(nextFrame, size);
 
 	//Copy contents to nextFrame
-	for (Renderable *r : renderables) {
+	for (Renderable *r : *(screens[activeScreen]->getRenderables())) {
 		Buffer::copyContent(nextFrame, *r->getBuffer(), r->getPosition());
 	}
 }
@@ -69,4 +69,16 @@ void ConsoleRenderer::render() {
 	cout << "                     ";
 	console->setCursorPosition(0, consoleSize.Y);
 	cout << "Updated chars: " << updatedChars;
+}
+
+void ConsoleRenderer::setActiveScreen(const int s) {
+	if (s < 0 || s >= screens.size()) {
+		return;
+	}
+
+	activeScreen = s;
+}
+
+int ConsoleRenderer::getActiveScreen() const {
+	return activeScreen;
 }

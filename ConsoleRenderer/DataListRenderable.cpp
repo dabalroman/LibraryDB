@@ -55,7 +55,7 @@ void DataListRenderable::render() {
 		}
 
 		ss.str(" ");
-		ss << right << setw(dataFieldLength.lp) << i << " "
+		ss << right << setw(dataFieldLength.lp) << i + 1 << " "
 		   << left << setw(dataFieldLength.name + 1)
 		   << cropString(dataListPointer->getRecord(i)->name, dataFieldLength.name)
 		   << setw(dataFieldLength.author + 1)

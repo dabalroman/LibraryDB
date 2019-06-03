@@ -8,16 +8,16 @@
 
 #include <vector>
 #include "Console.hpp"
-#include "Renderable.hpp"
+#include "Screen.hpp"
 
-//TODO: RENDER WHOLE SCREEN TO CONSOLE
 class ConsoleRenderer {
 private:
 	COORD size{};
 	Console *console;
 	Console::RICHTEXT currentFrame, nextFrame;
 
-	vector<Renderable *> renderables;
+	vector<Screen *> screens;
+	int activeScreen = 0;
 
 public:
 	explicit ConsoleRenderer(Console &console_);
@@ -32,12 +32,24 @@ public:
 	 * Add renderable to render query
 	 * @param r Renderable
 	 */
-	void addRenderable(Renderable *r);
+	void addScreen(Screen *s);
 
 	/**
 	 * Render buffer to console screen
 	 */
 	void render();
+
+	/**
+	 * Set active screen
+	 * @param s Screen ID
+	 */
+	void setActiveScreen(int s);
+
+	/**
+	 * Get active screen
+	 * @return Screen ID
+	 */
+	int getActiveScreen() const;
 
 private:
 	/**
