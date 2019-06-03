@@ -17,7 +17,7 @@ void InputField::render() {
 
 	emptyBuffer();
 	Buffer::fill(buffer, ' ', isActive() ? activeColor : textColor);
-	Buffer::insertString(buffer, ">> " + text + (isActive() ? "_ [ESC - przerwij wprowadzanie]" : ""), {0, 0},
+	Buffer::insertString(buffer, preText + text + (isActive() ? "_ [ESC - przerwij wprowadzanie]" : ""), {0, 0},
 	                     isActive() ? activeColor : textColor);
 }
 
@@ -44,4 +44,8 @@ void InputField::setActive(bool active_) {
 void InputField::setActiveColor(Console::FULLCOLOR activeColor_) {
 	activeColor = activeColor_;
 	needUpdate = true;
+}
+
+void InputField::setPreText(const string &preText_) {
+	InputField::preText = preText_;
 }

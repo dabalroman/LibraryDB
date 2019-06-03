@@ -41,6 +41,7 @@ int main() {
 	input->setTextColor(Console::getFullColor(Console::Color::BRIGHT_WHITE, Console::Color::GRAY));
 	input->setActiveColor(Console::getFullColor(Console::Color::BLACK, Console::Color::WHITE));
 	input->move({0, (short) (console.getSize().Y - 4)});
+	input->setPreText("Filtr: ");
 
 	//General info
 	auto *listScreenInstructions = new TextField({console.getSize().X, 1});
@@ -94,6 +95,7 @@ int main() {
 			//ESC
 			if (c.wVirtualKeyCode == KEY::ESC) {
 				input->setActive(false);
+				input->setPreText("Filtr: ");
 				textInputMode = false;
 			}
 		} else {
@@ -129,6 +131,7 @@ int main() {
 				case KEY::I:
 					//Enable input
 					input->setActive(true);
+					input->setPreText(">> ");
 					textInputMode = true;
 					break;
 			}

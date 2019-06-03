@@ -14,7 +14,8 @@ protected:
 	void render() override;
 
 	bool active = false;
-
+	string preText = ">> ";
+protected:
 	Console::FULLCOLOR activeColor = Console::COLOR_DEFAULT;
 
 public:
@@ -43,6 +44,12 @@ public:
 	 * @param textColor_ FULLCOLOR
 	 */
 	void setActiveColor(Console::FULLCOLOR activeColor_);
+
+	/**
+	 * Set pretext
+	 * @param preText_
+	 */
+	void setPreText(const string &preText_);
 
 	/**
 	 * Insert char
