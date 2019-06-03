@@ -6,6 +6,7 @@
 
 Console::Console() {
 	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	hIn = GetStdHandle(STD_INPUT_HANDLE);
 	updateConsoleInfo();
 	setColor();
 }
@@ -60,6 +61,24 @@ Console::FULLCOLOR Console::getFullColor(Console::Color fg, Console::Color bg) {
 	return (FULLCOLOR) bg << 0x4 | (FULLCOLOR) fg;
 }
 
-Console::FULLCOLOR Console::getCurrentColor() {
+Console::FULLCOLOR Console::getCurrentColor() const {
 	return currentColor;
+}
+
+KEY_EVENT_RECORD Console::getKey() const {
+	//Get key from console
+	DWORD mode, count;
+	INPUT_RECORD inputRecord;
+
+	GetConsoleMode(hIn, &mode);
+	SetConsoleMode(hIn, 0);
+	FlushConsoleInputBuffer(hIn);
+
+	do {
+		ReadConsoleInput(hIn, &inputRecord, 1, &count);
+	} while (inputRecord.EventType != KEY_EVENT || !inputRecord.Event.KeyEvent.bKeyDown);
+
+	SetConsoleMode(hIn, mode);
+
+	return inputRecord.Event.KeyEvent;
 }

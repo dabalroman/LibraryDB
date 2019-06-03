@@ -14,17 +14,18 @@ using namespace std;
  */
 class Record {
 public:
-	enum class State : short {
-		Lend = 0,
-		Available = 1,
+	enum class State : int {
+		Available = 0,
+		Lend = 1,
 		Unavailable = 2,
 	};
 
 	string name, description, signature, author;
+
+private:
 	Record::State state;
 
 public:
-
 	/***
 	 * Constructor
 	 * @param name Book name
@@ -49,14 +50,51 @@ public:
 	 * Get state as int
 	 * @return state State as int
 	 */
-	const int getState() const;
+	const int getIntState() const;
+
+	/**
+	 * Get state
+	 * @return state State
+	 */
+	const State getState() const;
 
 	/**
 	 * Set state from int
 	 * @param state State as int
 	 */
 	void setState(const int &state);
-};
 
+	/**
+	 * Compare Records by name
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	static bool compareByName(Record *a, Record *b);
+
+	/**
+	 * Compare Records by Author
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	static bool compareByAuthor(Record *a, Record *b);
+
+	/**
+	 * Compare Records by Signature
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	static bool compareBySignature(Record *a, Record *b);
+
+	/**
+	 * Compare Records by State
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	static bool compareByState(Record *a, Record *b);
+};
 
 #endif //LIBRARYDB_RECORD_HPP

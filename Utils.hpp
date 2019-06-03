@@ -10,6 +10,20 @@
 
 using namespace std;
 
+enum KEY : int {
+	BACKSPACE = 8,
+	ESC = 27,
+	ARROW_UP = 38,
+	ARROW_DOWN = 40,
+	ARROW_LEFT = 37,
+	ARROW_RIGHT = 39,
+	A = 65,
+	I = 73,
+	S = 83,
+	T = 84,
+	Z = 90,
+};
+
 /**
  * Splits string into substrings
  * @param s String
@@ -17,5 +31,13 @@ using namespace std;
  * @return Vector w/ substrings
  */
 vector<string> splitString(string s, char d);
+
+/**
+ * Crop string to given length
+ * @param s String
+ * @param chars Length
+ * @return String
+ */
+string cropString(const string &s, int chars);
 
 #endif //LIBRARYDB_UTILS_HPP

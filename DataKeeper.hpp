@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Record.hpp"
+#include "DataList.hpp"
 
 class DataKeeper {
 	const string DATA_FILE = "data.txt";
@@ -18,24 +19,13 @@ class DataKeeper {
 	};
 
 public:
-	vector<Record *> records;
+	DataList data;
 
-	enum class SortBy : int {
-		Name = 0,
-		Author = 1,
-		Signature = 2,
-		State = 3,
-	};
-
-	DataKeeper() = default;
+	DataKeeper();
 
 	int loadFromFile();
 
 	int saveToFile();
-
-	vector<Record *> *getRecords();
-
-	void sort(SortBy sortby);
 };
 
 

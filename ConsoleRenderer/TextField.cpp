@@ -12,10 +12,9 @@ void TextField::render() {
 		return;
 	}
 
-	//TODO: ALIGN SUPPORT
 	emptyBuffer();
-	Buffer::createBorder(buffer, borderColor);
-	Buffer::insertString(buffer, text, {2, 1}, textColor);
+	Buffer::fill(buffer, ' ', textColor);
+	Buffer::insertString(buffer, text, {0, 0}, textColor);
 }
 
 TextField::TextField(COORD size_, string text_, TextAlign textAlign_) : Renderable(size_) {
@@ -26,8 +25,8 @@ TextField::TextField(COORD size_, string text_, TextAlign textAlign_) : Renderab
 		size.X = 10;
 	}
 
-	if (size.Y < 3) {
-		size.Y = 3;
+	if (size.Y < 1) {
+		size.Y = 1;
 	}
 }
 

@@ -18,3 +18,7 @@ vector<string> splitString(string s, char d) {
 
 	return output;
 }
+
+string cropString(const string &s, int chars) {
+	return s.substr(0, chars);
+}

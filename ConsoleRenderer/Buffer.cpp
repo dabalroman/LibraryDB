@@ -63,3 +63,9 @@ void Buffer::createBorder(Console::RICHTEXT &buffer, Console::FULLCOLOR color) {
 		buffer[y][bufferXSize - 1] = vertical;
 	}
 }
+
+void Buffer::fill(Console::RICHTEXT &buffer, char c, Console::FULLCOLOR color) {
+	for (Console::RICHLINE &sr : buffer) {
+		sr.assign(sr.size(), {c, color});
+	}
+}

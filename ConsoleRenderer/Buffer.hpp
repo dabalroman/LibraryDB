@@ -33,7 +33,20 @@ namespace Buffer {
 	void insertString(Console::RICHTEXT &buffer, string s, COORD offset = {0, 0},
 	                  Console::FULLCOLOR color = Console::COLOR_DEFAULT);
 
+	/**
+	 * Create border around renderable
+	 * @param buffer Reference to buffer
+	 * @param color Color
+	 */
 	void createBorder(Console::RICHTEXT &buffer, Console::FULLCOLOR color = Console::COLOR_DEFAULT);
+
+	/**
+	 * Fill buffer with char
+	 * @param buffer Reference to buffer
+	 * @param c Char
+	 * @param color Color
+	 */
+	void fill(Console::RICHTEXT &buffer, char c, Console::FULLCOLOR color = Console::COLOR_DEFAULT);
 }
 
 #endif //LIBRARYDB_BUFFER_HPP

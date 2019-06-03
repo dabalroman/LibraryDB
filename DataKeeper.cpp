@@ -10,36 +10,44 @@
 
 using namespace std;
 
+DataKeeper::DataKeeper() {
+	data = DataList();
+}
+
 int DataKeeper::loadFromFile() {
+	//Open file
 	fstream file;
 	file.open(DATA_FILE, ios::in);
 
 	if (file.good()) {
-
 		string rawInput;
 
+		//Read data
 		while (!file.eof()) {
 			getline(file, rawInput);
 
+			//Last line?
 			if (rawInput == "\n") {
 				continue;
 			}
 
+			//Split data
 			auto input = splitString(rawInput, DATA_DELIMITER);
 
+			//Wrong input size?
 			if (input.size() != DATA_INPUT_STRINGS_AMOUNT) {
 				continue;
 			}
 
-			records.push_back(new Record(
+			//Push data to record
+			data.addRecord(new Record(
 					input[(int) FileDataOrder::Name],
 					input[(int) FileDataOrder::Author],
 					input[(int) FileDataOrder::Description],
 					input[(int) FileDataOrder::Signature],
 					static_cast<Record::State>(
 							stoi(input[(int) FileDataOrder::State])
-					)
-			));
+					)));
 		}
 
 	} else {
@@ -50,23 +58,22 @@ int DataKeeper::loadFromFile() {
 	return 1;
 }
 
-vector<Record *> *DataKeeper::getRecords() {
-	return &records;
-}
-
 int DataKeeper::saveToFile() {
 	fstream file;
 	file.open(DATA_FILE, ios::out | ios::trunc);
 
 	if (file.good()) {
+		data.setActiveElement(0);
 
-		for (auto r : records) {
+		//Save data to file
+		do {
+			Record *r = data.getActiveRecord();
 			file << r->name << ';'
 			     << r->author << ';'
 			     << r->description << ';'
 			     << r->signature << ';'
-			     << static_cast<int>(r->state) << '\n';
-		}
+			     << static_cast<int>(r->getIntState()) << '\n';
+		} while (!data.next());
 
 	} else {
 		return 0;

@@ -18,6 +18,12 @@ protected:
 public:
 	string text;
 
+	/**
+	 * Create TextField
+	 * @param size_
+	 * @param text_
+	 * @param textAlign_
+	 */
 	explicit TextField(COORD size_, string text_ = "", TextAlign textAlign_ = TextAlign::LEFT);
 };
 

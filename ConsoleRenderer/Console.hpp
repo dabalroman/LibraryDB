@@ -12,7 +12,7 @@
 using namespace std;
 
 class Console {
-	HANDLE hOut;
+	HANDLE hOut, hIn;
 	CONSOLE_SCREEN_BUFFER_INFO csbi{};
 	CONSOLE_CURSOR_INFO cci{};
 	const COORD topLeft = {0, 0};
@@ -90,13 +90,19 @@ public:
 	 * Returns console color
 	 * @return FULLCOLOR Console color
 	 */
-	FULLCOLOR getCurrentColor();
+	FULLCOLOR getCurrentColor() const;
 
 	/**
 	 * Returns size of console
 	 * @return COORD Size of console in characters
 	 */
 	COORD getSize();
+
+	/**
+	 * Returns last key event
+	 * @return KEY_EVENT_RECORD Key event
+	 */
+	KEY_EVENT_RECORD getKey() const;
 
 	/**
 	 * Returns FULLCOLOR
