@@ -11,7 +11,7 @@ ListScreen::ListScreen(Console &consoleHandle_, DataKeeper &dataHandle_) : Scree
 	debug->move({100, (short) (consoleHandle->getSize().Y - 1)});
 
 	//Books list
-	booksList = new DataListRenderable({consoleHandle->getSize().X, 14}, &dataHandle->data);
+	booksList = new DataListRenderable({consoleHandle->getSize().X, 29}, &dataHandle->data);
 
 	//Input field
 	input = new InputField({consoleHandle->getSize().X, 1});
@@ -22,7 +22,7 @@ ListScreen::ListScreen(Console &consoleHandle_, DataKeeper &dataHandle_) : Scree
 
 	//General info
 	instructions = new TextField({consoleHandle->getSize().X, 1});
-	instructions->text = "Ogolne:     [Strzalka w gore / dol] - Zaznacz rekord               [Strzalka w prawo / Enter] - Szczegoly rekordu";
+	instructions->text = "Ogolne:     [Strzalka w gore / dol] - Zaznacz rekord               [Strzalka w prawo] - Szczegoly rekordu";
 	instructions->setTextColor(Console::getFullColor(Console::Color::BRIGHT_WHITE, Console::Color::BLUE));
 	instructions->move({0, (short) (consoleHandle->getSize().Y - 3)});
 
@@ -70,7 +70,7 @@ int ListScreen::handleInput(KEY_EVENT_RECORD c) {
 		//Filter data
 		dataHandle->data.filter(input->text);
 
-		return 0;
+		return RETURNCODES::DEFAULT;
 	}
 
 	//Handle function keys
@@ -79,35 +79,46 @@ int ListScreen::handleInput(KEY_EVENT_RECORD c) {
 			//Previous record
 			dataHandle->data.prev();
 			break;
+
 		case KEY::ARROW_DOWN:
 			//Next record
 			dataHandle->data.next();
 			break;
+
 		case KEY::A:
 			//Sort by Author
 			dataHandle->data.sort(DataList::SortBy::Author);
 			break;
+
 		case KEY::T:
 			//Sort by Title
 			dataHandle->data.sort(DataList::SortBy::Name);
 			break;
+
 		case KEY::S:
 			//Sort by State
 			dataHandle->data.sort(DataList::SortBy::State);
 			break;
+
 		case KEY::Z:
 			//Sort by Signature
 			dataHandle->data.sort(DataList::SortBy::Signature);
 			break;
+
 		case KEY::I:
 			//Enable input
 			input->setActive(true);
 			textInputMode = true;
 			break;
+
+		case KEY::ARROW_RIGHT:
+			//Go to details screen
+			return RETURNCODES::DETAILS_SCREEN;
+
 		case KEY::ESC:
 			//End program
-			return 1;
+			return RETURNCODES::EXIT;
 	}
 
-	return 0;
+	return RETURNCODES::DEFAULT;
 }

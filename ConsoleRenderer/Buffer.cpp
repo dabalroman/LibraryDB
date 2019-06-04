@@ -5,16 +5,20 @@
 #include <conio.h>
 #include "Console.hpp"
 #include "Buffer.hpp"
+#include "../Utils.hpp"
 
 void Buffer::copyContent(Console::RICHTEXT &target, Console::RICHTEXT &source, COORD offset) {
+	//Are source and target not overlapping?
 	if (target.empty() || source.empty()
 	    || offset.X >= target[0].size() || offset.Y >= target.size()) {
 		return;
 	}
 
+	//Find buffer boundaries
 	int xBoundary = min(target[0].size() - offset.X, source[0].size());
 	int yBoundary = min(target.size() - offset.Y, source.size());
 
+	//Copy data
 	for (int y = 0; y < yBoundary; y++) {
 		for (int x = 0; x < xBoundary; x++) {
 			target[y + offset.Y][x + offset.X] = source[y][x];
@@ -23,16 +27,32 @@ void Buffer::copyContent(Console::RICHTEXT &target, Console::RICHTEXT &source, C
 }
 
 void Buffer::insertString(Console::RICHTEXT &buffer, string s, COORD offset, Console::FULLCOLOR color) {
+	//Is there anything to insert
 	if (buffer.empty() || s.length() <= 0) {
 		return;
 	}
 
-	int xBoundary = min(buffer[0].size(), s.length() + offset.X + 1);
-	int yBoundary = min(buffer.size(), (unsigned) offset.Y + 1);
+	//Find buffer boundaries
+	int xBoundary = buffer[0].size();
+	int yBoundary = buffer.size();
 
-	for (int y = offset.Y; y < yBoundary; y++) {
-		for (int x = offset.X; x < xBoundary; x++) {
-			buffer[y][x] = {s[x - offset.X], color};
+	//Isn't string to long to fit in one line?
+	if (s.length() <= xBoundary) {
+
+		//Ok, copy
+		for (int x = offset.X; x < xBoundary && (x - offset.X) <= s.length(); x++) {
+			buffer[offset.Y][x] = {s[x - offset.X], color};
+		}
+	} else {
+		//Nope, need to split
+		vector<string> v = splitStringToRows(s, xBoundary);
+
+		//Copy each row
+		for (int y = offset.Y; y < yBoundary && (y - offset.Y) < v.size(); y++) {
+			//Copy line
+			for (int x = offset.X; x < xBoundary && (x - offset.X) <= v[y - offset.Y].length(); x++) {
+				buffer[y][x] = {v[y - offset.Y][x - offset.X], color};
+			}
 		}
 	}
 }

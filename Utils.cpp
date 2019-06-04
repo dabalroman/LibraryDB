@@ -2,6 +2,7 @@
 // Created by rd on 16/05/2019.
 //
 
+#include <iostream>
 #include "Utils.hpp"
 
 vector<string> splitString(const string &s, char d) {
@@ -24,4 +25,32 @@ string cropString(const string &s, int chars) {
 		return s;
 	}
 	return s.substr(0, chars);
+}
+
+vector<string> splitStringToRows(string s, int l) {
+	vector<string> output;
+
+	while (s.length() > l) {
+
+		int lastSpacePos = 0;
+		//Search last space before end of the line
+		for (int i = 0; i < l; ++i) {
+			if (s[i] == ' ') {
+				lastSpacePos = i;
+			}
+		}
+
+		if (lastSpacePos == 0) {
+			//Space not found, break string
+			output.push_back(cropString(s, l));
+			s = s.substr(l);
+		} else {
+			//Space found, split at space and remove it
+			output.push_back(cropString(s, lastSpacePos));
+			s = s.substr(lastSpacePos + 1);
+		}
+	}
+
+	output.push_back(s);
+	return output;
 }

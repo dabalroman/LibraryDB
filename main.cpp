@@ -1,19 +1,8 @@
-#include <iostream>
-#include <iomanip>
-#include <windows.h>
-#include <cctype>
-#include <cstdio>
-#include <wincon.h>
-#include <conio.h>
-#include <sstream>
 #include "DataKeeper.hpp"
-#include "Utils.hpp"
 #include "ConsoleRenderer/Console.hpp"
-#include "ConsoleRenderer/TextField.hpp"
-#include "ConsoleRenderer/InputField.hpp"
 #include "ConsoleRenderer/ConsoleRenderer.hpp"
-#include "ConsoleRenderer/DataListRenderable.hpp"
-#include "ListScreen.hpp"
+#include "Screens/ListScreen.hpp"
+#include "Screens/DetailsScreen.hpp"
 
 using namespace std;
 
@@ -28,23 +17,35 @@ int main() {
 
 	//Screens
 	auto *listScreen = new ListScreen(console, dk);
-//	auto *details = new Screen();
+	auto *details = new DetailsScreen(console, dk);
 
-	//List screen
-//	details->addRenderable(tf);
-
+	//Add screens to renderer
 	consoleRenderer.addScreen(listScreen);
-//	consoleRenderer.addScreen(details);
+	consoleRenderer.addScreen(details);
 	consoleRenderer.render();
 
 	//App heartbeat
 	bool close = false;
-
-
 	while (!close) {
 		auto c = console.getKey();
 
-		close = consoleRenderer.getActiveScreen()->handleInput(c);
+		//Handle screen input
+		int returnCode = consoleRenderer.getActiveScreen()->handleInput(c);
+
+		//Exit
+		if (returnCode == Screen::EXIT) {
+			close = true;
+			continue;
+		}
+
+		//Set screen
+		if (returnCode >= 0) {
+			consoleRenderer.setActiveScreen(returnCode);
+
+			//Re-handle input with fake key to update screen
+			c.wVirtualKeyCode = 0;
+			consoleRenderer.getActiveScreen()->handleInput(c);
+		}
 		consoleRenderer.render();
 	}
 

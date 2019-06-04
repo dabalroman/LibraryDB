@@ -63,7 +63,7 @@ int DataKeeper::saveToFile() {
 	file.open(DATA_FILE, ios::out | ios::trunc);
 
 	if (file.good()) {
-		data.setActiveElement(0);
+		data.setActiveElementByID(0);
 
 		//Save data to file
 		do {
@@ -72,7 +72,7 @@ int DataKeeper::saveToFile() {
 			     << r->author << ';'
 			     << r->description << ';'
 			     << r->signature << ';'
-			     << static_cast<int>(r->getIntState()) << '\n';
+			     << r->getIntState() << '\n';
 		} while (!data.next());
 
 	} else {

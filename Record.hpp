@@ -65,7 +65,7 @@ public:
 	 * Set state from int
 	 * @param state State as int
 	 */
-	void setState(const int &state);
+	void setState(const State &state);
 
 	/**
 	 * Returns true if any of fields matches given string

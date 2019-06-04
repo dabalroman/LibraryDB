@@ -6,10 +6,10 @@
 #define LIBRARYDB_LISTSCREEN_HPP
 
 
-#include "ConsoleRenderer/Screen.hpp"
-#include "ConsoleRenderer/InputField.hpp"
-#include "ConsoleRenderer/DataListRenderable.hpp"
-#include "DataKeeper.hpp"
+#include "../DataKeeper.hpp"
+#include "../ConsoleRenderer/Screen.hpp"
+#include "../ConsoleRenderer/Renderables/InputField.hpp"
+#include "../ConsoleRenderer/Renderables/DataListRenderable.hpp"
 
 class ListScreen : public Screen {
 public:

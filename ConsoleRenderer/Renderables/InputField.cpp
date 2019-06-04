@@ -5,11 +5,10 @@
 //
 
 #include "InputField.hpp"
-#include "Buffer.hpp"
-#include "../Utils.hpp"
+#include "../Buffer.hpp"
+#include "../../Utils.hpp"
 
-InputField::InputField(COORD size_, string text_, TextAlign textAlign_) : TextField(size_, std::move(text_),
-                                                                                    textAlign_) {}
+InputField::InputField(COORD size_, string text_) : TextField(size_, std::move(text_)) {}
 
 void InputField::render() {
 	if (!needUpdate) {

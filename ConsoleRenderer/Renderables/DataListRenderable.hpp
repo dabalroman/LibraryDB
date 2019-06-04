@@ -6,8 +6,8 @@
 #define LIBRARYDB_DATALISTRENDERABLE_HPP
 
 
-#include "Renderable.hpp"
-#include "../DataList.hpp"
+#include "../Renderable.hpp"
+#include "../../DataList.hpp"
 
 class DataListRenderable : public Renderable {
 protected:

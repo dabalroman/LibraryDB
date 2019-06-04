@@ -8,7 +8,6 @@
 #include <utility>
 #include "Console.hpp"
 
-//TODO: Render on demand (change) SUPPORT
 class Renderable {
 protected:
 	COORD size{}, position{};

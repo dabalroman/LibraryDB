@@ -5,15 +5,13 @@
 #ifndef LIBRARYDB_TEXTFIELD_HPP
 #define LIBRARYDB_TEXTFIELD_HPP
 
-#include "Renderable.hpp"
+#include "../Renderable.hpp"
 
 using namespace std;
 
 class TextField : public Renderable {
 protected:
 	void render() override;
-
-	TextAlign textAlign;
 
 public:
 	string text;
@@ -24,7 +22,7 @@ public:
 	 * @param text_
 	 * @param textAlign_
 	 */
-	explicit TextField(COORD size_, string text_ = "", TextAlign textAlign_ = TextAlign::LEFT);
+	explicit TextField(COORD size_, string text_ = "");
 };
 
 

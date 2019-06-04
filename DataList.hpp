@@ -38,14 +38,14 @@ public:
 	 * Remove record from list
 	 * @param i Record id
 	 */
-	void removeRecord(int i);
+	void removeRecordByID(int i);
 
 	/**
 	 * Get handle to record
 	 * @param i Record id
 	 * @return Record handle
 	 */
-	Record *getRecord(int i) const;
+	Record *getRecordByID(int i) const;
 
 	/**
 	 * Get handle to active record
@@ -57,13 +57,13 @@ public:
 	 * Get id of an active element
 	 * @return id
 	 */
-	int getActiveElement() const;
+	int getActiveElementID() const;
 
 	/**
 	 * Set active element by id
 	 * @param i id
 	 */
-	int setActiveElement(int i);
+	int setActiveElementByID(int i);
 
 	/**
 	 * Get list size

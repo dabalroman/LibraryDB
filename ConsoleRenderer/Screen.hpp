@@ -17,6 +17,13 @@ protected:
 	bool textInputMode = false;
 
 public:
+	enum RETURNCODES : int {
+		DETAILS_SCREEN = 1,
+		LIST_SCREEN = 0,
+		DEFAULT = -1,
+		EXIT = -2
+	};
+
 	/**
 	 * Create screen
 	 * @param consoleHandle_ Console handle

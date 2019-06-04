@@ -20,8 +20,8 @@ const Record::State Record::getState() const {
 	return state;
 }
 
-void Record::setState(const int &state_) {
-	state = static_cast<State>(state);
+void Record::setState(const State &state_) {
+	state = state_;
 }
 
 bool Record::compareByName(Record *a, Record *b) {

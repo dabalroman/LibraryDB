@@ -18,7 +18,10 @@ enum KEY : int {
 	ARROW_DOWN = 40,
 	ARROW_LEFT = 37,
 	ARROW_RIGHT = 39,
+	DEL = 46,
 	A = 65,
+	C = 67,
+	E = 69,
 	I = 73,
 	N = 78,
 	S = 83,
@@ -33,6 +36,14 @@ enum KEY : int {
  * @return Vector w/ substrings
  */
 vector<string> splitString(const string &s, char d);
+
+/**
+ * Splits string into rows
+ * @param s String
+ * @param l Row length
+ * @return Vector w/ rows
+ */
+vector<string> splitStringToRows(string s, int l);
 
 /**
  * Crop string to given length

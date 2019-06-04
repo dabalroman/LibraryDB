@@ -12,27 +12,27 @@ void DataList::addRecord(Record *r) {
 	records.push_back(r);
 }
 
-void DataList::removeRecord(const int i) {
-	records.erase(records.begin() + i);
-
+void DataList::removeRecordByID(const int i) {
 	if (activeElement == i) {
-		activeElement--;
+		setActiveElementByID(0);
 	}
+
+	records.erase(records.begin() + i);
 }
 
-Record *DataList::getRecord(const int i) const {
+Record *DataList::getRecordByID(const int i) const {
 	return records[i];
 }
 
 Record *DataList::getActiveRecord() const {
-	return getRecord(activeElement);
+	return getRecordByID(activeElement);
 }
 
-int DataList::getActiveElement() const {
+int DataList::getActiveElementID() const {
 	return activeElement;
 }
 
-int DataList::setActiveElement(const int i) {
+int DataList::setActiveElementByID(const int i) {
 	if (i < 0) {
 		activeElement = 0;
 		return 1;
@@ -43,7 +43,7 @@ int DataList::setActiveElement(const int i) {
 		return 1;
 	}
 
-	if (getRecord(i)->hidden) {
+	if (getRecordByID(i)->hidden) {
 		return 1;
 	}
 
@@ -63,7 +63,7 @@ int DataList::next() {
 
 	//Search next unhidden element
 	int i = activeElement + 1;
-	while (i < getSize() && getRecord(i)->hidden) {
+	while (i < getSize() && getRecordByID(i)->hidden) {
 		i++;
 	}
 
@@ -84,7 +84,7 @@ int DataList::prev() {
 
 	//Search next unhidden element
 	int i = activeElement - 1;
-	while (i > 0 && getRecord(i)->hidden) {
+	while (i > 0 && getRecordByID(i)->hidden) {
 		i--;
 	}
 
@@ -121,7 +121,7 @@ void DataList::filter(string &s) {
 	}
 
 	int i = 0;
-	while (i < getSize() && setActiveElement(i++));
+	while (i < getSize() && setActiveElementByID(i++));
 }
 
 

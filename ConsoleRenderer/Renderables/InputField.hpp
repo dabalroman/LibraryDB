@@ -29,7 +29,7 @@ public:
 	 * @param text_
 	 * @param textAlign_
 	 */
-	explicit InputField(COORD size_, string text_ = "", TextAlign textAlign_ = TextAlign::LEFT);
+	explicit InputField(COORD size_, string text_ = "");
 
 	/**
 	 * Is active?

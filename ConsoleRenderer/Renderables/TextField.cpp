@@ -3,7 +3,7 @@
 //
 
 #include "TextField.hpp"
-#include "Buffer.hpp"
+#include "../Buffer.hpp"
 
 using namespace std;
 
@@ -12,14 +12,12 @@ void TextField::render() {
 		return;
 	}
 
-	//TODO: Multiline support
 	emptyBuffer();
 	Buffer::fill(buffer, ' ', textColor);
 	Buffer::insertString(buffer, text, {0, 0}, textColor);
 }
 
-TextField::TextField(COORD size_, string text_, TextAlign textAlign_) : Renderable(size_) {
-	textAlign = textAlign_;
+TextField::TextField(COORD size_, string text_) : Renderable(size_) {
 	text = std::move(text_);
 
 	if (size.X < 10) {

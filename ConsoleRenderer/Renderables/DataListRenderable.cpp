@@ -5,8 +5,8 @@
 #include <sstream>
 #include <iomanip>
 #include "DataListRenderable.hpp"
-#include "Buffer.hpp"
-#include "../Utils.hpp"
+#include "../Buffer.hpp"
+#include "../../Utils.hpp"
 
 DataListRenderable::DataListRenderable(COORD size_, DataList *dl) : Renderable(size_) {
 	dataListPointer = dl;
@@ -21,7 +21,7 @@ DataListRenderable::DataListRenderable(COORD size_, DataList *dl) : Renderable(s
 
 	activeRecordColor = Console::getFullColor(Console::Color::BLACK, Console::Color::BRIGHT_WHITE);
 	defaultRecordColor = Console::COLOR_DEFAULT;
-	legendColor = Console::getFullColor(Console::Color::YELLOW);
+	legendColor = Console::getFullColor(Console::Color::BRIGHT_WHITE, Console::Color::BLUE);
 }
 
 void DataListRenderable::render() {
@@ -46,12 +46,12 @@ void DataListRenderable::render() {
 	int rowsAmount = 0;
 	for (int i = 0; i < dataListPointer->getSize(); ++i) {
 		//Do not display if hidden
-		if (dataListPointer->getRecord(i)->hidden) {
+		if (dataListPointer->getRecordByID(i)->hidden) {
 			continue;
 		}
 
 		//State
-		switch (dataListPointer->getRecord(i)->getState()) {
+		switch (dataListPointer->getRecordByID(i)->getState()) {
 			case Record::State::Available:
 				textState = "Dostepna";
 				break;
@@ -67,15 +67,15 @@ void DataListRenderable::render() {
 		ss.str(" ");
 		ss << right << setw(dataFieldLength.lp) << i + 1 << " "
 		   << left << setw(dataFieldLength.name + 1)
-		   << cropString(dataListPointer->getRecord(i)->name, dataFieldLength.name)
+		   << cropString(dataListPointer->getRecordByID(i)->name, dataFieldLength.name)
 		   << setw(dataFieldLength.author + 1)
-		   << cropString(dataListPointer->getRecord(i)->author, dataFieldLength.author)
+		   << cropString(dataListPointer->getRecordByID(i)->author, dataFieldLength.author)
 		   << setw(dataFieldLength.state + 1)
 		   << textState
 		   << setw(dataFieldLength.signature + 1)
-		   << cropString(dataListPointer->getRecord(i)->signature, dataFieldLength.signature);
+		   << cropString(dataListPointer->getRecordByID(i)->signature, dataFieldLength.signature);
 
 		Buffer::insertString(buffer, ss.str(), {0, (short) ((rowsAmount++) + 1)},
-		                     (dataListPointer->getActiveElement() == i) ? activeRecordColor : defaultRecordColor);
+		                     (dataListPointer->getActiveElementID() == i) ? activeRecordColor : defaultRecordColor);
 	}
 }
