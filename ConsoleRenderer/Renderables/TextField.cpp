@@ -1,7 +1,3 @@
-//
-// Created by rd on 20.05.2019.
-//
-
 #include "TextField.hpp"
 #include "../Buffer.hpp"
 

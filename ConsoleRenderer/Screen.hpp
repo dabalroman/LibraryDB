@@ -1,7 +1,3 @@
-//
-// Created by rd on 03.06.2019.
-//
-
 #ifndef LIBRARYDB_SCREEN_HPP
 #define LIBRARYDB_SCREEN_HPP
 

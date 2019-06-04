@@ -1,7 +1,3 @@
-//
-// Created by rd on 20.05.2019.
-//
-
 #ifndef LIBRARYDB_TEXTFIELD_HPP
 #define LIBRARYDB_TEXTFIELD_HPP
 

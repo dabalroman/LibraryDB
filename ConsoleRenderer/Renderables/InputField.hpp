@@ -1,7 +1,3 @@
-//
-// Created by rd on 03.06.2019.
-//
-
 #ifndef LIBRARYDB_INPUTFIELD_HPP
 #define LIBRARYDB_INPUTFIELD_HPP
 

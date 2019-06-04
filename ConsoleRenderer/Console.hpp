@@ -1,7 +1,3 @@
-//
-// Created by rd on 20.05.2019.
-//
-
 #ifndef LIBRARYDB_CONSOLE_HPP
 #define LIBRARYDB_CONSOLE_HPP
 

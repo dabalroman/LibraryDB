@@ -1,7 +1,3 @@
-//
-// Created by rd on 21.05.2019.
-//
-
 #ifndef LIBRARYDB_BUFFER_HPP
 #define LIBRARYDB_BUFFER_HPP
 

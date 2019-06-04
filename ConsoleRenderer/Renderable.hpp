@@ -1,7 +1,3 @@
-//
-// Created by rd on 20.05.2019.
-//
-
 #ifndef LIBRARYDB_RENDERABLE_HPP
 #define LIBRARYDB_RENDERABLE_HPP
 
