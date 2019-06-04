@@ -24,7 +24,6 @@ protected:
 	} dataFieldLength;
 
 	Console::FULLCOLOR activeRecordColor, defaultRecordColor, legendColor;
-
 public:
 	/**
 	 * Create DataListRenderable

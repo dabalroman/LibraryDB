@@ -12,13 +12,17 @@
 class InputField : public TextField {
 protected:
 	void render() override;
-
 	bool active = false;
-	string preText = ">> ";
-protected:
+
 	Console::FULLCOLOR activeColor = Console::COLOR_DEFAULT;
 
 public:
+	string preText = "";
+	string activePreText = ">> ";
+	string emptyText = "[brak]";
+	string postText = "";
+	string activePostText = "_ [ESC - przerwij wprowadzanie]";
+
 	/**
 	 * Create InputField
 	 * @param size_
@@ -46,16 +50,10 @@ public:
 	void setActiveColor(Console::FULLCOLOR activeColor_);
 
 	/**
-	 * Set pretext
-	 * @param preText_
-	 */
-	void setPreText(const string &preText_);
-
-	/**
 	 * Insert char
 	 * @param c Char
 	 */
-	void insert(const char c);
+	void insert(char c);
 
 	/**
 	 * Remove char

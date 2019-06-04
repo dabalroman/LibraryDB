@@ -79,6 +79,10 @@ void ConsoleRenderer::setActiveScreen(const int s) {
 	activeScreen = s;
 }
 
-int ConsoleRenderer::getActiveScreen() const {
+int ConsoleRenderer::getActiveScreenID() const {
 	return activeScreen;
+}
+
+Screen *ConsoleRenderer::getActiveScreen() const {
+	return screens[activeScreen];
 }

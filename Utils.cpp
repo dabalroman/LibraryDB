@@ -4,7 +4,7 @@
 
 #include "Utils.hpp"
 
-vector<string> splitString(string s, char d) {
+vector<string> splitString(const string &s, char d) {
 	vector<string> output;
 
 	int start = 0, end = 0, length = s.length();
@@ -20,5 +20,8 @@ vector<string> splitString(string s, char d) {
 }
 
 string cropString(const string &s, int chars) {
+	if (chars >= s.length()) {
+		return s;
+	}
 	return s.substr(0, chars);
 }

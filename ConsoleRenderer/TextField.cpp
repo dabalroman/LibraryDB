@@ -12,6 +12,7 @@ void TextField::render() {
 		return;
 	}
 
+	//TODO: Multiline support
 	emptyBuffer();
 	Buffer::fill(buffer, ' ', textColor);
 	Buffer::insertString(buffer, text, {0, 0}, textColor);

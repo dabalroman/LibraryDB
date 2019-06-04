@@ -31,6 +31,7 @@ void DataListRenderable::render() {
 
 	emptyBuffer();
 
+	//Legend
 	stringstream ss;
 	ss << " ### "
 	   << left << setw(dataFieldLength.name + 1) << "Tytul pozycji"
@@ -40,8 +41,16 @@ void DataListRenderable::render() {
 
 	Buffer::insertString(buffer, ss.str(), {0, 0}, legendColor);
 
+	//Create rows
 	string textState;
+	int rowsAmount = 0;
 	for (int i = 0; i < dataListPointer->getSize(); ++i) {
+		//Do not display if hidden
+		if (dataListPointer->getRecord(i)->hidden) {
+			continue;
+		}
+
+		//State
 		switch (dataListPointer->getRecord(i)->getState()) {
 			case Record::State::Available:
 				textState = "Dostepna";
@@ -54,6 +63,7 @@ void DataListRenderable::render() {
 				break;
 		}
 
+		//Crate list row
 		ss.str(" ");
 		ss << right << setw(dataFieldLength.lp) << i + 1 << " "
 		   << left << setw(dataFieldLength.name + 1)
@@ -65,7 +75,7 @@ void DataListRenderable::render() {
 		   << setw(dataFieldLength.signature + 1)
 		   << cropString(dataListPointer->getRecord(i)->signature, dataFieldLength.signature);
 
-		Buffer::insertString(buffer, ss.str(), {0, (short) (i + 1)},
+		Buffer::insertString(buffer, ss.str(), {0, (short) ((rowsAmount++) + 1)},
 		                     (dataListPointer->getActiveElement() == i) ? activeRecordColor : defaultRecordColor);
 	}
 }

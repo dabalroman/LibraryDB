@@ -40,5 +40,11 @@ bool Record::compareByState(Record *a, Record *b) {
 	return (a->getIntState() < b->getIntState());
 }
 
+bool Record::matchString(const string &s) {
+	return cropString(name, s.length()) == s
+	       || cropString(author, s.length()) == s
+	       || cropString(signature, s.length()) == s;
+}
+
 
 

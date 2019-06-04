@@ -10,6 +10,7 @@
 
 InputField::InputField(COORD size_, string text_, TextAlign textAlign_) : TextField(size_, std::move(text_),
                                                                                     textAlign_) {}
+
 void InputField::render() {
 	if (!needUpdate) {
 		return;
@@ -17,11 +18,15 @@ void InputField::render() {
 
 	emptyBuffer();
 	Buffer::fill(buffer, ' ', isActive() ? activeColor : textColor);
-	Buffer::insertString(buffer, preText + text + (isActive() ? "_ [ESC - przerwij wprowadzanie]" : ""), {0, 0},
+	Buffer::insertString(buffer,
+	                     (isActive() ? activePreText : preText) +
+	                     ((text.length() == 0 && !isActive()) ? emptyText : text) +
+	                     (isActive() ? activePostText : postText),
+	                     {0, 0},
 	                     isActive() ? activeColor : textColor);
 }
 
-void InputField::insert(char c) {
+void InputField::insert(const char c) {
 	if (c < 32 || c > 126) {
 		return;
 	}
@@ -44,8 +49,4 @@ void InputField::setActive(bool active_) {
 void InputField::setActiveColor(Console::FULLCOLOR activeColor_) {
 	activeColor = activeColor_;
 	needUpdate = true;
-}
-
-void InputField::setPreText(const string &preText_) {
-	InputField::preText = preText_;
 }

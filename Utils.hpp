@@ -32,7 +32,7 @@ enum KEY : int {
  * @param d Delimiter
  * @return Vector w/ substrings
  */
-vector<string> splitString(string s, char d);
+vector<string> splitString(const string &s, char d);
 
 /**
  * Crop string to given length

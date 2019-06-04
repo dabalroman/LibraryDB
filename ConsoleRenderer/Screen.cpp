@@ -11,3 +11,8 @@ void Screen::addRenderable(Renderable *r) {
 vector<Renderable *> *Screen::getRenderables() {
 	return &renderables;
 }
+
+Screen::Screen(Console &consoleHandle_, DataKeeper &dataHandle_) {
+	consoleHandle = &consoleHandle_;
+	dataHandle = &dataHandle_;
+}

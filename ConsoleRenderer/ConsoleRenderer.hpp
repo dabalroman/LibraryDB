@@ -46,10 +46,16 @@ public:
 	void setActiveScreen(int s);
 
 	/**
-	 * Get active screen
+	 * Get active screen id
 	 * @return Screen ID
 	 */
-	int getActiveScreen() const;
+	int getActiveScreenID() const;
+
+	/**
+	 * Get active screen
+	 * @return
+	 */
+	Screen *getActiveScreen() const;
 
 private:
 	/**

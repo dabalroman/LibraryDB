@@ -6,6 +6,7 @@
 #define LIBRARYDB_RECORD_HPP
 
 #include <string>
+#include "Utils.hpp"
 
 using namespace std;
 
@@ -21,6 +22,8 @@ public:
 	};
 
 	string name, description, signature, author;
+
+	bool hidden = false;
 
 private:
 	Record::State state;
@@ -65,10 +68,17 @@ public:
 	void setState(const int &state);
 
 	/**
+	 * Returns true if any of fields matches given string
+	 * @param s String
+	 * @return Bool
+	 */
+	bool matchString(const string &s);
+
+	/**
 	 * Compare Records by name
 	 * @param a
 	 * @param b
-	 * @return
+	const  * @re&turn
 	 */
 	static bool compareByName(Record *a, Record *b);
 

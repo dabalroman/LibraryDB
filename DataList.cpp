@@ -32,18 +32,23 @@ int DataList::getActiveElement() const {
 	return activeElement;
 }
 
-void DataList::setActiveElement(const int i) {
+int DataList::setActiveElement(const int i) {
 	if (i < 0) {
 		activeElement = 0;
-		return;
+		return 1;
 	}
 
 	if (i >= records.size() - 1) {
 		activeElement = records.size() - 1;
-		return;
+		return 1;
+	}
+
+	if (getRecord(i)->hidden) {
+		return 1;
 	}
 
 	activeElement = i;
+	return 0;
 }
 
 int DataList::getSize() const {
@@ -51,11 +56,24 @@ int DataList::getSize() const {
 }
 
 int DataList::next() {
+	//End of list
 	if (activeElement >= records.size() - 1) {
 		return 1;
 	}
 
-	activeElement++;
+	//Search next unhidden element
+	int i = activeElement + 1;
+	while (i < getSize() && getRecord(i)->hidden) {
+		i++;
+	}
+
+	//Found any?
+	if (i >= getSize()) {
+		return 1;
+	}
+
+	//Set active
+	activeElement = i;
 	return 0;
 }
 
@@ -64,7 +82,19 @@ int DataList::prev() {
 		return 1;
 	}
 
-	activeElement--;
+	//Search next unhidden element
+	int i = activeElement - 1;
+	while (i > 0 && getRecord(i)->hidden) {
+		i--;
+	}
+
+	//Found any?
+	if (i < 0) {
+		return 1;
+	}
+
+	//Set active
+	activeElement = i;
 	return 0;
 }
 
@@ -83,6 +113,15 @@ void DataList::sort(DataList::SortBy sortBy) {
 			std::sort(records.begin(), records.end(), Record::compareByAuthor);
 			break;
 	}
+}
+
+void DataList::filter(string &s) {
+	for (auto &r : records) {
+		r->hidden = !r->matchString(s);
+	}
+
+	int i = 0;
+	while (i < getSize() && setActiveElement(i++));
 }
 
 
