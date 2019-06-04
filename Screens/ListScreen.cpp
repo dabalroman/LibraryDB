@@ -1,17 +1,11 @@
-//
-// Created by rd on 04.06.2019.
-//
-
 #include <sstream>
 #include "ListScreen.hpp"
 
 ListScreen::ListScreen(Console &consoleHandle_, DataKeeper &dataHandle_) : Screen(consoleHandle_, dataHandle_) {
-	//DEBUG
-	debug = new TextField({20, 1}, " ??? ");
-	debug->move({100, (short) (consoleHandle->getSize().Y - 1)});
+	dataHandle->data.sort(DataList::SortBy::Title);
 
 	//Books list
-	booksList = new DataListRenderable({consoleHandle->getSize().X, 29}, &dataHandle->data);
+	booksList = new DataListRenderable({consoleHandle->getSize().X, 30}, &dataHandle->data);
 
 	//Input field
 	input = new InputField({consoleHandle->getSize().X, 1});
@@ -21,15 +15,12 @@ ListScreen::ListScreen(Console &consoleHandle_, DataKeeper &dataHandle_) : Scree
 	input->preText = "Filtr: ";
 
 	//General info
-	instructions = new TextField({consoleHandle->getSize().X, 1});
-	instructions->text = "Ogolne:     [Strzalka w gore / dol] - Zaznacz rekord               [Strzalka w prawo] - Szczegoly rekordu";
+	instructions = new TextField({consoleHandle->getSize().X, 2});
+	instructions->text = "Ogolne:     [Strzalka w gore / dol] - Zaznacz rekord               "
+	                     "[Strzalka w prawo] - Szczegoly rekordu\n            "
+	                     "[N] - Nowy rekord    [I] - Szukaj    [ESC] - Zakoncz";
 	instructions->setTextColor(Console::getFullColor(Console::Color::BRIGHT_WHITE, Console::Color::BLUE));
 	instructions->move({0, (short) (consoleHandle->getSize().Y - 3)});
-
-	instructions2 = new TextField({consoleHandle->getSize().X, 1});
-	instructions2->text = "            [N] - Nowy rekord    [I] - Szukaj    [ESC] - Zakoncz";
-	instructions2->setTextColor(Console::getFullColor(Console::Color::BRIGHT_WHITE, Console::Color::BLUE));
-	instructions2->move({0, (short) (consoleHandle->getSize().Y - 2)});
 
 	//Sort info
 	sortInstructions = new TextField({consoleHandle->getSize().X, 1});
@@ -42,16 +33,10 @@ ListScreen::ListScreen(Console &consoleHandle_, DataKeeper &dataHandle_) : Scree
 	addRenderable(booksList);
 	addRenderable(input);
 	addRenderable(instructions);
-	addRenderable(instructions2);
 	addRenderable(sortInstructions);
-	addRenderable(debug);
 }
 
 int ListScreen::handleInput(KEY_EVENT_RECORD c) {
-	stringstream ss;
-	ss << c.uChar.AsciiChar << " (" << (int) c.uChar.AsciiChar << " / " << c.wVirtualKeyCode << ")";
-	debug->text = ss.str();
-
 	//Handle input mode
 	if (textInputMode) {
 		input->insert(c.uChar.AsciiChar);
@@ -92,7 +77,7 @@ int ListScreen::handleInput(KEY_EVENT_RECORD c) {
 
 		case KEY::T:
 			//Sort by Title
-			dataHandle->data.sort(DataList::SortBy::Name);
+			dataHandle->data.sort(DataList::SortBy::Title);
 			break;
 
 		case KEY::S:
@@ -110,6 +95,13 @@ int ListScreen::handleInput(KEY_EVENT_RECORD c) {
 			input->setActive(true);
 			textInputMode = true;
 			break;
+
+		case KEY::N:
+			//New record
+			//Create new record and go to details screen
+			dataHandle->data.addRecord(new Record("?", "?", "?", "?"));
+			dataHandle->data.setActiveElementByID(dataHandle->data.getSize() - 1);
+			return RETURNCODES::DETAILS_SCREEN;
 
 		case KEY::ARROW_RIGHT:
 			//Go to details screen

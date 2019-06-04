@@ -1,7 +1,3 @@
-//
-// Created by rd on 04.06.2019.
-//
-
 #ifndef LIBRARYDB_DETAILSSCREEN_HPP
 #define LIBRARYDB_DETAILSSCREEN_HPP
 
@@ -12,17 +8,29 @@
 #include "../ConsoleRenderer/Renderables/TextField.hpp"
 
 class DetailsScreen : public Screen {
+private:
+	int currentInputFiled = 0, prevInputField = 0;
 public:
-	DetailsScreen(Console &consoleHandle_, DataKeeper &dataHandle_);
-
 	InputField *input;
 	TextField *descTitle, *title,
 			*descAuthor, *author,
 			*descDescription, *description,
 			*descState, *state,
 			*descSignature, *signature,
-			*debug, *instructions, *instructions2;
+			*instructions, *instructions2;
 
+	/**
+	 * Create Details Screen
+	 * @param consoleHandle_ Console Handle
+	 * @param dataHandle_ Data Handle
+	 */
+	DetailsScreen(Console &consoleHandle_, DataKeeper &dataHandle_);
+
+	/**
+	 * Handle user input
+	 * @param c user input
+	 * @return RETURNCODE (change screen or stay)
+	 */
 	int handleInput(KEY_EVENT_RECORD c) override;
 };
 

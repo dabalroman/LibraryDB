@@ -11,7 +11,7 @@ class DataKeeper {
 	const int DATA_INPUT_STRINGS_AMOUNT = 5;
 
 	enum class FileDataOrder : int {
-		Name = 0,
+		Title = 0,
 		Author = 1,
 		Description = 2,
 		Signature = 3,

@@ -1,7 +1,3 @@
-//
-// Created by rd on 21.05.2019.
-//
-
 #include <conio.h>
 #include "Console.hpp"
 #include "Buffer.hpp"
@@ -36,8 +32,8 @@ void Buffer::insertString(Console::RICHTEXT &buffer, string s, COORD offset, Con
 	int xBoundary = buffer[0].size();
 	int yBoundary = buffer.size();
 
-	//Isn't string to long to fit in one line?
-	if (s.length() <= xBoundary) {
+	//Isn't string to long to fit in one line? (Or does not have any /n?)
+	if (s.length() <= xBoundary && s.find('\n') == string::npos) {
 
 		//Ok, copy
 		for (int x = offset.X; x < xBoundary && (x - offset.X) <= s.length(); x++) {

@@ -22,11 +22,13 @@ int main() {
 	//Add screens to renderer
 	consoleRenderer.addScreen(listScreen);
 	consoleRenderer.addScreen(details);
+
+	//Render first screen
 	consoleRenderer.render();
 
 	//App heartbeat
 	bool close = false;
-	while (!close) {
+	do {
 		auto c = console.getKey();
 
 		//Handle screen input
@@ -42,12 +44,12 @@ int main() {
 		if (returnCode >= 0) {
 			consoleRenderer.setActiveScreen(returnCode);
 
-			//Re-handle input with fake key to update screen
+			//Re-handle input with fake key to update screen content
 			c.wVirtualKeyCode = 0;
 			consoleRenderer.getActiveScreen()->handleInput(c);
 		}
 		consoleRenderer.render();
-	}
+	} while (!close);
 
 	//Save data
 	dk.saveToFile();

@@ -1,7 +1,3 @@
-//
-// Created by rd on 20.05.2019.
-//
-
 #include "ConsoleRenderer.hpp"
 #include "Buffer.hpp"
 
@@ -61,14 +57,6 @@ void ConsoleRenderer::render() {
 			}
 		}
 	}
-
-	//Debug info
-	COORD consoleSize = console->getSize();
-	console->setColor(Console::Color::AQUA);
-	console->setCursorPosition(0, consoleSize.Y);
-	cout << "                     ";
-	console->setCursorPosition(0, consoleSize.Y);
-	cout << "Updated chars: " << updatedChars;
 }
 
 void ConsoleRenderer::setActiveScreen(const int s) {

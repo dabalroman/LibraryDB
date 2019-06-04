@@ -1,7 +1,3 @@
-//
-// Created by rd on 16/05/2019.
-//
-
 #include <fstream>
 #include <iostream>
 #include <conio.h>
@@ -41,7 +37,7 @@ int DataKeeper::loadFromFile() {
 
 			//Push data to record
 			data.addRecord(new Record(
-					input[(int) FileDataOrder::Name],
+					input[(int) FileDataOrder::Title],
 					input[(int) FileDataOrder::Author],
 					input[(int) FileDataOrder::Description],
 					input[(int) FileDataOrder::Signature],
@@ -68,7 +64,7 @@ int DataKeeper::saveToFile() {
 		//Save data to file
 		do {
 			Record *r = data.getActiveRecord();
-			file << r->name << ';'
+			file << r->title << ';'
 			     << r->author << ';'
 			     << r->description << ';'
 			     << r->signature << ';'

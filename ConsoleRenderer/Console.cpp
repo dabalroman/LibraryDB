@@ -1,7 +1,3 @@
-//
-// Created by rd on 20.05.2019.
-//
-
 #include "Console.hpp"
 
 Console::Console() {
@@ -49,7 +45,7 @@ void Console::setCursorPosition(COORD c) {
 
 COORD Console::getSize() {
 	updateConsoleInfo();
-	return COORD{csbi.srWindow.Right, csbi.srWindow.Bottom};
+	return COORD{csbi.srWindow.Right, (short) (csbi.srWindow.Bottom + 1)};
 }
 
 void Console::updateConsoleInfo() {

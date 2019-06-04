@@ -1,8 +1,3 @@
-//
-// Created by rd on 16/05/2019.
-//
-
-#include <iostream>
 #include "Utils.hpp"
 
 vector<string> splitString(const string &s, char d) {
@@ -30,13 +25,18 @@ string cropString(const string &s, int chars) {
 vector<string> splitStringToRows(string s, int l) {
 	vector<string> output;
 
-	while (s.length() > l) {
+	while (s.length() > l || s.find('\n') != string::npos) {
 
 		int lastSpacePos = 0;
 		//Search last space before end of the line
 		for (int i = 0; i < l; ++i) {
 			if (s[i] == ' ') {
 				lastSpacePos = i;
+			}
+
+			if (s[i] == '\n') {
+				lastSpacePos = i;
+				break;
 			}
 		}
 

@@ -1,7 +1,3 @@
-//
-// Created by rd on 02.06.2019.
-//
-
 #include "DataList.hpp"
 
 DataList::DataList() {
@@ -100,7 +96,7 @@ int DataList::prev() {
 
 void DataList::sort(DataList::SortBy sortBy) {
 	switch (sortBy) {
-		case SortBy::Name:
+		case SortBy::Title:
 			std::sort(records.begin(), records.end(), Record::compareByName);
 			break;
 		case SortBy::State:

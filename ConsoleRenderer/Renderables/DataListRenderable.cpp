@@ -1,7 +1,3 @@
-//
-// Created by rd on 02.06.2019.
-//
-
 #include <sstream>
 #include <iomanip>
 #include "DataListRenderable.hpp"
@@ -67,7 +63,7 @@ void DataListRenderable::render() {
 		ss.str(" ");
 		ss << right << setw(dataFieldLength.lp) << i + 1 << " "
 		   << left << setw(dataFieldLength.name + 1)
-		   << cropString(dataListPointer->getRecordByID(i)->name, dataFieldLength.name)
+		   << cropString(dataListPointer->getRecordByID(i)->title, dataFieldLength.name)
 		   << setw(dataFieldLength.author + 1)
 		   << cropString(dataListPointer->getRecordByID(i)->author, dataFieldLength.author)
 		   << setw(dataFieldLength.state + 1)

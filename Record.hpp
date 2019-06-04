@@ -1,7 +1,3 @@
-//
-// Created by rd on 16/05/2019.
-//
-
 #ifndef LIBRARYDB_RECORD_HPP
 #define LIBRARYDB_RECORD_HPP
 
@@ -21,7 +17,7 @@ public:
 		Unavailable = 2,
 	};
 
-	string name, description, signature, author;
+	string title, description, signature, author;
 
 	bool hidden = false;
 
@@ -31,13 +27,13 @@ private:
 public:
 	/***
 	 * Constructor
-	 * @param name Book name
+	 * @param title Book name
 	 * @param author Author full name
 	 * @param description Description
 	 * @param signature Unique book signature
 	 */
-	Record(string name, string author, string description = "", string signature = "", State state = State::Available)
-			: name(std::move(name)),
+	Record(string title, string author, string description = "", string signature = "", State state = State::Available)
+			: title(std::move(title)),
 			  author(std::move(author)),
 			  description(std::move(description)),
 			  signature(std::move(signature)),

@@ -1,11 +1,7 @@
-//
-// Created by rd on 16/05/2019.
-//
-
 #include "Record.hpp"
 
 Record::Record(const Record &record) {
-	this->name = record.name;
+	this->title = record.title;
 	this->signature = record.signature;
 	this->author = record.author;
 	this->description = record.description;
@@ -25,7 +21,7 @@ void Record::setState(const State &state_) {
 }
 
 bool Record::compareByName(Record *a, Record *b) {
-	return (a->name.compare(b->name) < 0);
+	return (a->title.compare(b->title) < 0);
 }
 
 bool Record::compareByAuthor(Record *a, Record *b) {
@@ -41,7 +37,7 @@ bool Record::compareByState(Record *a, Record *b) {
 }
 
 bool Record::matchString(const string &s) {
-	return cropString(name, s.length()) == s
+	return cropString(title, s.length()) == s
 	       || cropString(author, s.length()) == s
 	       || cropString(signature, s.length()) == s;
 }
