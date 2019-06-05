@@ -48,6 +48,8 @@ int main() {
 			c.wVirtualKeyCode = 0;
 			consoleRenderer.getActiveScreen()->handleInput(c);
 		}
+
+		//Render screen
 		consoleRenderer.render();
 	} while (!close);
 
